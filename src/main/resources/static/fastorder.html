@@ -5,10 +5,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<form name="test" method="post" action="/neworder.html">
+<form name="test" method="post" action="/paid">
     <p>Hello, user!</p>
-    <p>FAST ORDER: <output name="result">summ/prop</output></p>
+    <p>FAST ORDER: <output name="result">1100/1600</output></p>
     <p><input type="submit" value="PAID"></p>
+
+    <table border="1">
+        <caption>Orders</caption>
+        <tr>
+            <th>ID</th>
+            <th>ИМЯ</th>
+            <th>МЕТОД ОПЛАТЫ</th>
+        </tr>
+        <tr><td>1</td><td>Иван</td><td>карта Сбер</td></tr>
+        <tr><td>2</td><td>Алексей</td><td>карта Тинькофф</td></tr>
+        <tr><td>3</td><td>Рамиль</td><td>наличка</td></tr>
+    </table>
+
 </form>
 </body>
 </html>
