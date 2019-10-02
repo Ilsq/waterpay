@@ -1,25 +1,20 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int userID;
+
+    @Column(unique = true, length = 50)
     private String login;
+
     private String password;
 
     public Account() {
-    }
-
-    public Account(String login, String password) {
-        this.login = login;
-        this.password = password;
     }
 
     public int getUserID() {

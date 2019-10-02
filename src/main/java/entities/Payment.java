@@ -15,18 +15,18 @@ public class Payment {
     private String payer;
     private String date;
     private String method;
-    private int order_id;
+    private int ordera_id;
 
     protected Payment() {
     }
 
-    public Payment(int id, int amount, String payer, String date, String method, int order_id) {
+    public Payment(int id, int amount, String payer, String date, String method, int ordera_id) {
         this.id = id;
         this.amount = amount;
         this.payer = payer;
         this.date = date;
         this.method = method;
-        this.order_id = order_id;
+        this.ordera_id = ordera_id;
     }
 
     public int getId() {
@@ -69,11 +69,11 @@ public class Payment {
         this.method = method;
     }
 
-    public int getOrder_id() {
-        return order_id;
+    public int getOrdera_id() {
+        return ordera_id;
     }
 
     public void setOrder_id(int order_id) {
-        this.order_id = order_id;
+        this.ordera_id = order_id;
     }
 }

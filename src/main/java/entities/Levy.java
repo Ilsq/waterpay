@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Order {
+public class Levy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,10 +16,10 @@ public class Order {
 
     private int prop;
 
-    protected Order() {
+    public Levy() {
     }
 
-    public Order(int id, int summ, int prop) {
+    public Levy(int id, int summ, int prop) {
         this.id = id;
         this.summ = summ;
         this.prop = prop;
