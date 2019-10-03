@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "account")
 public class Account {
 
     @Id
@@ -44,6 +45,6 @@ public class Account {
     @Override
     public String toString() {
         return String.format(
-                "Account[id=%d, firstName='%s', lastName='%s']", userID, login, password);
+                "Account[id=%d, login='%s', password='%s']", userID, login, password);
     }
 }
