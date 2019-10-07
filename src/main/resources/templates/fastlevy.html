@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+<p th:text="'Hello, !'"/>
+
 <form action="/paid" method="post">
-    <p>Привет, Ильдус!</p>
     <p>Последний сбор: <output name="result">1100/1600</output></p>
     <p>Сумма оплаты: <output name="result">300</output></p>
     <p><input type="submit" value="Оплата"></p>
@@ -14,13 +15,21 @@
     <table border="1">
         <caption>Оплатившие</caption>
         <tr>
-            <th>ID</th>
             <th>ИМЯ</th>
             <th>МЕТОД ОПЛАТЫ</th>
         </tr>
-        <tr><td>1</td><td>Иван</td><td>карта Сбер</td></tr>
-        <tr><td>2</td><td>Алексей</td><td>карта Тинькофф</td></tr>
-        <tr><td>3</td><td>Рамиль</td><td>наличка</td></tr>
+        <tr>
+            <td>Иван</td>
+            <td>карта Сбер</td>
+        </tr>
+        <tr>
+            <td>Алексей</td>
+            <td>карта Тинькофф</td>
+        </tr>
+        <tr>
+            <td>Рамиль</td>
+            <td>наличка</td>
+        </tr>
     </table>
 
 </form>
