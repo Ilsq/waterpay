@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Waterpay: fixing of paing</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <form name="test" method="post" action="/greeting">
-    <p>Ильдус</p>
+    <p th:text="${name} + '!'"/>
     <p><output name="result">300</output></p>
     <p><b>Метод оплаты</b><br>
         <input type="text" name="name" size="100">
     </p>
-    <p><input type="submit" value="PAID"></p>
+    <p><input type="submit" value="Оплата"></p>
 </form>
 </body>
 </html>

@@ -40,6 +40,9 @@ public class AccountController {
             return new ModelAndView("login", model);
         }
         model.addAttribute("name", login);
+        if (login.equals("admin")) {
+            return new ModelAndView("administrator", model);
+        }
         return new ModelAndView("fastlevy", model);
     }
 }
