@@ -1,4 +1,4 @@
-package hello;
+package org.coworking.ilsq.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

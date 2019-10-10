@@ -16,6 +16,7 @@
 
 package hello;
 
+import org.coworking.ilsq.controller.GreetingController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

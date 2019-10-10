@@ -1,4 +1,4 @@
-package entities;
+package org.coworking.ilsq.entity;
 
 import javax.persistence.*;
 

@@ -1,6 +1,6 @@
-package hello;
+package org.coworking.ilsq.repository;
 
-import entities.Account;
+import org.coworking.ilsq.entity.Account;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AccountRepository extends CrudRepository<Account, Integer> {

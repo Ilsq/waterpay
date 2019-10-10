@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p th:text="'Hello, !'"/>
+<p th:text="'Hello, ' + ${name} + '!'"/>
 
 <form action="/paid" method="post">
     <p>Последний сбор: <output name="result">1100/1600</output></p>

@@ -1,6 +1,7 @@
-package hello;
+package org.coworking.ilsq.controller;
 
-import entities.Account;
+import org.coworking.ilsq.entity.Account;
+import org.coworking.ilsq.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
