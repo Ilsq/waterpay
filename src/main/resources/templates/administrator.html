@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Waterpay: administrator</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -9,18 +10,26 @@
     <p>Привет, Руслан!</p>
     <p>Последний сбор: <output name="result">1100/1600</output></p>
     <p><input type="submit" value="Новый сбор"></p>
-    <table border="1">
-        <caption>Сборы</caption>
+
+    <table>
+        <thead>
         <tr>
             <th>ID</th>
             <th>Дата</th>
             <th>Собрано</th>
         </tr>
-        <tr><td>5</td><td>15.09.19</td><td>1500</td></tr>
-        <tr><td>4</td><td>14.09.19</td><td>1400</td></tr>
-        <tr><td>3</td><td>13.09.19</td><td>1300</td></tr>
-        <tr><td>2</td><td>12.09.19</td><td>1200</td></tr>
-        <tr><td>1</td><td>11.09.19</td><td>1100</td></tr>
+        </thead>
+
+        <tbody>
+        <tr th:if="${levies.isEmpty()}">
+            <td colspan="3">сборов нет</td>
+        </tr>
+        <tr th:each="levy : ${levies}">
+            <td><span th:text="${levy.id}">ID</span></td>
+            <td><span th:text="${levy.date}">Дата</span></td>
+            <td><span th:text="${levy.prop}">Собрано</span></td>
+        </tr>
+        </tbody>
     </table>
 </form>
 </body>

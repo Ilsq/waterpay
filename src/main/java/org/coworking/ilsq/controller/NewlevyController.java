@@ -36,6 +36,7 @@ public class NewlevyController {
         levy.setSumm(summ);
         levy.setMethods(methods);
         levyRepository.save(levy);
+        model.addAttribute("levies", levyRepository.findAll());
         return new ModelAndView("administrator", model);
     }
 }

@@ -2,6 +2,7 @@ package org.coworking.ilsq.controller;
 
 import org.coworking.ilsq.entity.Account;
 import org.coworking.ilsq.repository.AccountRepository;
+import org.coworking.ilsq.repository.LevyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +17,9 @@ public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private LevyRepository levyRepository;
 
     @PostMapping(path = "/add")
     public ModelAndView addNewAccount(@RequestParam(name = "name") String login, @RequestParam(name = "pass") String password, ModelMap model) {
@@ -39,10 +43,11 @@ public class AccountController {
         if (!accountRepository.findByLogin(login).getPassword().equals(password)) {
             return new ModelAndView("login", model);
         }
-        model.addAttribute("name", login);
         if (login.equals("admin")) {
+            model.addAttribute("levies", levyRepository.findAll());
             return new ModelAndView("administrator", model);
         }
+        model.addAttribute("name", login);
         return new ModelAndView("fastlevy", model);
     }
 }
