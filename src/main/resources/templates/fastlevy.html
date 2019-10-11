@@ -13,24 +13,24 @@
     <p><input type="submit" value="Оплата"></p>
     <input name="name" th:value="${name}" type="hidden">
 
-    <table border="1">
-        <caption>Оплатившие</caption>
+
+    <table>
+        <thead>
         <tr>
             <th>ИМЯ</th>
-            <th>МЕТОД ОПЛАТЫ</th>
+            <th>Метод оплаты</th>
         </tr>
-        <tr>
-            <td>Иван</td>
-            <td>карта Сбер</td>
+        </thead>
+
+        <tbody>
+        <tr th:if="${payments.isEmpty()}">
+            <td colspan="2">оплативших нет</td>
         </tr>
-        <tr>
-            <td>Алексей</td>
-            <td>карта Тинькофф</td>
+        <tr th:each="payment : ${payments}">
+            <td><span th:text="${payment.payer}">ИМЯ</span></td>
+            <td><span th:text="${payment.method}">СПОСОБ ОПЛАТЫ</span></td>
         </tr>
-        <tr>
-            <td>Рамиль</td>
-            <td>наличка</td>
-        </tr>
+        </tbody>
     </table>
 
 </form>

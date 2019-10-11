@@ -1,6 +1,7 @@
 package org.coworking.ilsq.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "payment")
@@ -11,14 +12,14 @@ public class Payment {
     private int id;
     private int amount;
     private String payer;
-    private String date;
+    private Date date;
     private String method;
     private int ordera_id;
 
-    protected Payment() {
+    public Payment() {
     }
 
-    public Payment(int id, int amount, String payer, String date, String method, int ordera_id) {
+    public Payment(int id, int amount, String payer, Date date, String method, int ordera_id) {
         this.id = id;
         this.amount = amount;
         this.payer = payer;
@@ -51,11 +52,11 @@ public class Payment {
         this.payer = payer;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
