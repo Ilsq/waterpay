@@ -38,6 +38,14 @@ public class AccountController {
         return new ModelAndView("login", model);
     }
 
+    static ModelAndView getModelAndView(@RequestParam(name = "name") String login, ModelMap model, PaymentRepository paymentRepository, LevyRepository levyRepository) {
+        model.addAttribute("name", login);
+        model.addAttribute("payments", paymentRepository.findAll());
+        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().getSumm());
+
+        return new ModelAndView("fastlevy", model);
+    }
+
     @PostMapping(path = "/enter")
     public ModelAndView enterAccount(@RequestParam(name = "name") String login, @RequestParam(name = "pass") String password, ModelMap model) {
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
@@ -47,12 +55,13 @@ public class AccountController {
         if (!accountRepository.findByLogin(login).getPassword().equals(password)) {
             return new ModelAndView("login", model);
         }
+
+        model.addAttribute("prop", levyRepository.findFirstByOrderByIdDesc().getProp());
+
         if (login.equals("admin")) {
             model.addAttribute("levies", levyRepository.findAll());
             return new ModelAndView("administrator", model);
         }
-        model.addAttribute("name", login);
-        model.addAttribute("payments", paymentRepository.findAll());
-        return new ModelAndView("fastlevy", model);
+        return getModelAndView(login, model, paymentRepository, levyRepository);
     }
 }

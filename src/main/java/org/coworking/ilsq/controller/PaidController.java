@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
 
+import static org.coworking.ilsq.controller.AccountController.getModelAndView;
+
 @Controller
 @RequestMapping(path = "/paid")
 public class PaidController {
@@ -27,6 +29,7 @@ public class PaidController {
     @PostMapping
     public ModelAndView goToPaid(@RequestParam(name = "name") String name, ModelMap model) {
         model.addAttribute("name", name);
+        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().getSumm());
         return new ModelAndView("paid", model);
     }
 
@@ -43,8 +46,7 @@ public class PaidController {
         Date date = new Date(d);
         payment.setDate(date);
         paymentRepository.save(payment);
-        model.addAttribute("name", name);
-        return new ModelAndView("fastlevy", model);
+        return getModelAndView(name, model, paymentRepository, levyRepository);
     }
 
 

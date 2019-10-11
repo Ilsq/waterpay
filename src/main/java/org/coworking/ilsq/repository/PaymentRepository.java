@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PaymentRepository extends CrudRepository<Payment, Integer> {
     List<Payment> findAll();
-
+//    List<Payment> findAllByOrdera_id(int ordera_id);
 }

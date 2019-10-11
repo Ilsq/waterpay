@@ -5,11 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p th:text="'Hello, ' + ${name} + '!'"/>
+<p th:text="'Hello, ' + ${name} + '!'"></p>
 
 <form action="/paid" method="post">
-    <p>Последний сбор: <output name="result">1100/1600</output></p>
-    <p>Сумма оплаты: <output name="result">300</output></p>
+    <p th:text="'Последний сбор: ' + ${collected} + '/' + ${prop}"/>
+    <!--<p>Последний сбор: <output name="result">?1100/1600?</output></p>-->
+    <p th:text="'Сумма оплаты: ' + ${summ}"/>
+    <!--<p>Сумма оплаты: <output name="result">?300?</output></p>-->
     <p><input type="submit" value="Оплата"></p>
     <input name="name" th:value="${name}" type="hidden">
 
