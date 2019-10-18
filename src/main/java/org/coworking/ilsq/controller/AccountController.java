@@ -1,6 +1,7 @@
 package org.coworking.ilsq.controller;
 
 import org.coworking.ilsq.entity.Account;
+import org.coworking.ilsq.entity.Levy;
 import org.coworking.ilsq.repository.AccountRepository;
 import org.coworking.ilsq.repository.LevyRepository;
 import org.coworking.ilsq.repository.PaymentRepository;
@@ -48,7 +49,9 @@ public class AccountController implements IController {
             return new ModelAndView("login", model);
         }
 
-        model.addAttribute("prop", levyRepository.findFirstByOrderByIdDesc().getProp());
+        Levy last = levyRepository.findFirstByOrderByIdDesc();
+        model.addAttribute("prop", last.getProp());
+        model.addAttribute("collected", paymentRepository.amountSum(last.getId()));
 
         if (login.equals("admin")) {
             model.addAttribute("levies", levyRepository.findAll());
