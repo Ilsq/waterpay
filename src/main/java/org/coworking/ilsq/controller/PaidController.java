@@ -13,11 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
 
-import static org.coworking.ilsq.controller.AccountController.getModelAndView;
-
 @Controller
 @RequestMapping(path = "/paid")
-public class PaidController {
+public class PaidController implements IController {
 
 
     @Autowired
@@ -48,7 +46,5 @@ public class PaidController {
         paymentRepository.save(payment);
         return getModelAndView(name, model, paymentRepository, levyRepository);
     }
-
-
 
 }

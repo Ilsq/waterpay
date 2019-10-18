@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(path = "/account")
-public class AccountController {
+public class AccountController implements IController {
 
     @Autowired
     private AccountRepository accountRepository;
@@ -36,14 +36,6 @@ public class AccountController {
         account.setPassword(password);
         accountRepository.save(account);
         return new ModelAndView("login", model);
-    }
-
-    static ModelAndView getModelAndView(@RequestParam(name = "name") String login, ModelMap model, PaymentRepository paymentRepository, LevyRepository levyRepository) {
-        model.addAttribute("name", login);
-        model.addAttribute("payments", paymentRepository.findAll());
-        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().getSumm());
-
-        return new ModelAndView("fastlevy", model);
     }
 
     @PostMapping(path = "/enter")
