@@ -11,7 +11,7 @@ public interface IController {
     default ModelAndView getModelAndView(@RequestParam(name = "name") String login, ModelMap model, PaymentRepository paymentRepository, LevyRepository levyRepository) {
         model.addAttribute("name", login);
         model.addAttribute("payments", paymentRepository.findAll());
-        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().getSumm());
+        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
         return new ModelAndView("fastlevy", model);
     }
 
