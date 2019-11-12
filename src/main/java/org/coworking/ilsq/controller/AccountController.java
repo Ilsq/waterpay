@@ -1,7 +1,6 @@
 package org.coworking.ilsq.controller;
 
 import org.coworking.ilsq.entity.Account;
-import org.coworking.ilsq.entity.Levy;
 import org.coworking.ilsq.repository.AccountRepository;
 import org.coworking.ilsq.repository.LevyRepository;
 import org.coworking.ilsq.repository.PaymentRepository;
@@ -17,7 +16,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/account")
-public class AccountController implements IController {
+public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
@@ -37,6 +36,7 @@ public class AccountController implements IController {
         Account account = new Account();
         account.setLogin(login);
         account.setPassword(password);
+        account.setRole("user");
         accountRepository.save(account);
         return new ModelAndView("login", model);
     }
@@ -52,16 +52,17 @@ public class AccountController implements IController {
             return new ModelAndView("login", model);
         }
 
-        Optional<Levy> last = levyRepository.findFirstByOrderByIdDesc();
-        if (last.isPresent()) {
-            model.addAttribute("prop", last.get().getProp());
-            model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()));
-        }
+        model.addAttribute("prop", levyRepository.findFirstByOrderByIdDesc().getProp());
+        model.addAttribute("collected", paymentRepository.amountSum(levyRepository.findFirstByOrderByIdDesc().getId()));
+        model.addAttribute("name", login);
 
-        if (login.equals("admin")) {
+        if (accountRepository.findByLogin(login).getRole().equals("admin")) {
             model.addAttribute("levies", levyRepository.findAll());
             return new ModelAndView("administrator", model);
         }
-        return getModelAndView(login, model, paymentRepository, levyRepository);
+        model.addAttribute("payments", paymentRepository.findPaymentsByOrdera_id(levyRepository.findFirstByOrderByIdDesc().getId()));
+        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().getSumm());
+
+        return new ModelAndView("fastlevy", model);
     }
 }
