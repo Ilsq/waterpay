@@ -19,15 +19,6 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(int id, int amount, String payer, Date date, String method, int ordera_id) {
-        this.id = id;
-        this.amount = amount;
-        this.payer = payer;
-        this.date = date;
-        this.method = method;
-        this.ordera_id = ordera_id;
-    }
-
     public int getId() {
         return id;
     }
