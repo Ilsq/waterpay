@@ -12,10 +12,18 @@ public class Account {
 
     @Column(unique = true, length = 50)
     private String login;
-
     private String password;
+    private String role;
 
     public Account() {
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public int getUserID() {

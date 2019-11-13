@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/account")
-public class AccountController implements IController {
+public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
@@ -37,6 +37,7 @@ public class AccountController implements IController {
         Account account = new Account();
         account.setLogin(login);
         account.setPassword(password);
+        account.setRole("user");
         accountRepository.save(account);
         return new ModelAndView("login", model);
     }
@@ -58,10 +59,15 @@ public class AccountController implements IController {
             model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()));
         }
 
-        if (login.equals("admin")) {
+        model.addAttribute("name", login);
+        model.addAttribute("payments", paymentRepository.findPaymentsByOrdera_id(last.get().getId()));
+        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
+
+        if (accountRepository.findByLogin(login).getRole().equals("admin")) {
             model.addAttribute("levies", levyRepository.findAll());
             return new ModelAndView("administrator", model);
         }
-        return getModelAndView(login, model, paymentRepository, levyRepository);
+
+        return new ModelAndView("fastlevy", model);
     }
 }

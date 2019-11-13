@@ -15,7 +15,7 @@ import java.sql.Date;
 
 @Controller
 @RequestMapping(path = "/paid")
-public class PaidController implements IController {
+public class PaidController {
 
 
     @Autowired
@@ -44,7 +44,11 @@ public class PaidController implements IController {
         Date date = new Date(d);
         payment.setDate(date);
         paymentRepository.save(payment);
-        return getModelAndView(name, model, paymentRepository, levyRepository);
+
+        model.addAttribute("name", name);
+        model.addAttribute("payments", paymentRepository.findPaymentsByOrdera_id(levyRepository.findFirstByOrderByIdDesc().get().getId()));
+        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
+        return new ModelAndView("fastlevy", model);
     }
 
 }

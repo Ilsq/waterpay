@@ -7,7 +7,7 @@
 </head>
 <body>
 <form action="/enternewlevy" method="post" name="test">
-    <p>Привет, Админ!</p>
+    <p th:text="'Привет, ' + ${name} + '!'"></p>
     <p th:text="'Последний сбор: ' + ${collected} + '/' + ${prop}"/>
     <!--<p>Последний сбор: <output name="result">?1100/1600?</output></p>-->
     <p><input type="submit" value="Новый сбор"></p>
@@ -32,6 +32,26 @@
         </tr>
         </tbody>
     </table>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ИМЯ</th>
+            <th>Метод оплаты</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:if="${payments.isEmpty()}">
+            <td colspan="2">оплативших нет</td>
+        </tr>
+        <tr th:each="payment : ${payments}">
+            <td><span th:text="${payment.payer}">ИМЯ</span></td>
+            <td><span th:text="${payment.method}">СПОСОБ ОПЛАТЫ</span></td>
+        </tr>
+        </tbody>
+    </table>
+
 </form>
 </body>
 </html>

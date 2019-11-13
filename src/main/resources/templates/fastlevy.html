@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p th:text="'Hello, ' + ${name} + '!'"></p>
+<p th:text="'Привет, ' + ${name} + '!'"></p>
 
 <form action="/paid" method="post">
     <p th:text="'Последний сбор: ' + ${collected} + '/' + ${prop}"/>
@@ -14,7 +14,6 @@
     <!--<p>Сумма оплаты: <output name="result">?300?</output></p>-->
     <p><input type="submit" value="Оплата"></p>
     <input name="name" th:value="${name}" type="hidden">
-
 
     <table>
         <thead>
