@@ -27,7 +27,7 @@ public class PaidController {
     @PostMapping
     public ModelAndView goToPaid(@RequestParam(name = "name") String name, ModelMap model) {
         model.addAttribute("name", name);
-        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
+        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().getSumm());
         return new ModelAndView("paid", model);
     }
 
@@ -37,8 +37,8 @@ public class PaidController {
         Payment payment = new Payment();
         payment.setMethod(method);
         payment.setPayer(name);
-        payment.setOrder_id(levyRepository.findFirstByOrderByIdDesc().get().getId());
-        payment.setAmount(levyRepository.findFirstByOrderByIdDesc().get().getSumm());
+        payment.setOrder_id(levyRepository.findFirstByOrderByIdDesc().getId());
+        payment.setAmount(levyRepository.findFirstByOrderByIdDesc().getSumm());
 
         long d = System.currentTimeMillis();
         Date date = new Date(d);

@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Optional;
-
 @Controller
 @RequestMapping(path = "/account")
 public class AccountController {
@@ -44,11 +42,10 @@ public class AccountController {
     @PostMapping(path = "/enter")
     public ModelAndView enterAccount(@RequestParam(name = "name") String login, @RequestParam(name = "pass") String password, ModelMap model) {
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
-        Account account = accountRepository.findByLogin(login);
-        if (account == null) {
+        if (accountRepository.findByLogin(login) == null) {
             return new ModelAndView("login", model);
         }
-        if (!account.getPassword().equals(password)) {
+        if (!accountRepository.findByLogin(login).getPassword().equals(password)) {
             return new ModelAndView("login", model);
         }
 
