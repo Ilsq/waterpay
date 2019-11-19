@@ -45,6 +45,9 @@ public class AccountController {
     @PostMapping(path = "/enter")
     public ModelAndView enterAccount(@RequestParam(name = "name") String login, @RequestParam(name = "pass") String password, ModelMap model) {
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
+        model.addAttribute("payments", null);
+        model.addAttribute("levies", null);
+
         Account account = accountRepository.findByLogin(login);
         if (account == null) {
             return new ModelAndView("login", model);
@@ -61,6 +64,9 @@ public class AccountController {
 
         model.addAttribute("name", login);
         last.ifPresent(levy -> model.addAttribute("payments", paymentRepository.findPaymentsByOrderaId(levy.getId())));
+//        if (!model.containsAttribute("payments")) {
+//            model.addAttribute("payments", null);
+//        }
         levyRepository.findFirstByOrderByIdDesc().ifPresent(levy -> model.addAttribute("summ", levy.getSumm()));
 
         if (accountRepository.findByLogin(login).getRole().equals("admin")) {
