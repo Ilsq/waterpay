@@ -68,11 +68,11 @@ public class Payment {
         this.method = method;
     }
 
-    public int getOrdera_id() {
+    public int getOrderaId() {
         return orderaId;
     }
 
-    public void setOrder_id(int order_id) {
-        this.orderaId = order_id;
+    public void setOrderaId(int orderaId) {
+        this.orderaId = orderaId;
     }
 }

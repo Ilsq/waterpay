@@ -10,6 +10,6 @@ import java.util.List;
 public interface PaymentRepository extends CrudRepository<Payment, Integer> {
     List<Payment> findPaymentsByOrderaId(int id);
 
-    @Query("SELECT sum (p.amount) FROM Payment p WHERE p.ordera_id = :id")
+    @Query("SELECT sum (p.amount) FROM Payment p WHERE p.orderaId = :id")
     int amountSum(@Param("id") int id);
 }
