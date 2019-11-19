@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PaymentRepository extends CrudRepository<Payment, Integer> {
-    List<Payment> findPaymentsByOrdera_id(int id);
+    List<Payment> findPaymentsByOrderaId(int id);
 
     @Query("SELECT sum (p.amount) FROM Payment p WHERE p.ordera_id = :id")
     int amountSum(@Param("id") int id);

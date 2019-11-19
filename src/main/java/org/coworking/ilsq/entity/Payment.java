@@ -14,7 +14,7 @@ public class Payment {
     private String payer;
     private Date date;
     private String method;
-    private int ordera_id;
+    private int orderaId;
 
     public Payment() {
     }
@@ -25,7 +25,7 @@ public class Payment {
         this.payer = payer;
         this.date = date;
         this.method = method;
-        this.ordera_id = ordera_id;
+        this.orderaId = ordera_id;
     }
 
     public int getId() {
@@ -69,10 +69,10 @@ public class Payment {
     }
 
     public int getOrdera_id() {
-        return ordera_id;
+        return orderaId;
     }
 
     public void setOrder_id(int order_id) {
-        this.ordera_id = order_id;
+        this.orderaId = order_id;
     }
 }

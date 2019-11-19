@@ -46,7 +46,7 @@ public class PaidController {
         paymentRepository.save(payment);
 
         model.addAttribute("name", name);
-        model.addAttribute("payments", paymentRepository.findPaymentsByOrdera_id(levyRepository.findFirstByOrderByIdDesc().get().getId()));
+        model.addAttribute("payments", paymentRepository.findPaymentsByOrderaId(levyRepository.findFirstByOrderByIdDesc().get().getId()));
         model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
         return new ModelAndView("fastlevy", model);
     }

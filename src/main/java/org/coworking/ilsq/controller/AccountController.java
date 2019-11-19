@@ -60,7 +60,7 @@ public class AccountController {
         }
 
         model.addAttribute("name", login);
-        model.addAttribute("payments", paymentRepository.findPaymentsByOrdera_id(last.get().getId()));
+        model.addAttribute("payments", paymentRepository.findPaymentsByOrderaId(last.get().getId()));
         model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
 
         if (accountRepository.findByLogin(login).getRole().equals("admin")) {
