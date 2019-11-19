@@ -37,7 +37,7 @@ public class PaidController {
         Payment payment = new Payment();
         payment.setMethod(method);
         payment.setPayer(name);
-        payment.setOrder_id(levyRepository.findFirstByOrderByIdDesc().get().getId());
+        payment.setOrderaId(levyRepository.findFirstByOrderByIdDesc().get().getId());
         payment.setAmount(levyRepository.findFirstByOrderByIdDesc().get().getSumm());
 
         long d = System.currentTimeMillis();
