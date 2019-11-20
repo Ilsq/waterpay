@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
 import java.util.Optional;
 
 @Controller
@@ -45,8 +46,8 @@ public class AccountController {
     @PostMapping(path = "/enter")
     public ModelAndView enterAccount(@RequestParam(name = "name") String login, @RequestParam(name = "pass") String password, ModelMap model) {
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
-        model.addAttribute("payments", null);
-        model.addAttribute("levies", null);
+        model.addAttribute("payments", Collections.EMPTY_LIST);
+//        model.addAttribute("levies", Collections.EMPTY_LIST);
 
         Account account = accountRepository.findByLogin(login);
         if (account == null) {
@@ -60,6 +61,8 @@ public class AccountController {
         if (last.isPresent()) {
             model.addAttribute("prop", last.get().getProp());
             model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()));
+        } else {
+
         }
 
         model.addAttribute("name", login);

@@ -24,7 +24,7 @@
         </thead>
 
         <tbody>
-        <tr th:if="${payments.isEmpty()}">
+        <tr th:if="${payments?.isEmpty()}">
             <td colspan="2">оплативших нет</td>
         </tr>
         <tr th:each="payment : ${payments}">
