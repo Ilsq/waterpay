@@ -47,7 +47,9 @@ public class AccountController {
     public ModelAndView enterAccount(@RequestParam(name = "name") String login, @RequestParam(name = "pass") String password, ModelMap model) {
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
         model.addAttribute("payments", Collections.EMPTY_LIST);
-//        model.addAttribute("levies", Collections.EMPTY_LIST);
+        model.addAttribute("levies", Collections.EMPTY_LIST);
+        model.addAttribute("collected", 0);
+        model.addAttribute("prop", 0);
 
         Account account = accountRepository.findByLogin(login);
         if (account == null) {
