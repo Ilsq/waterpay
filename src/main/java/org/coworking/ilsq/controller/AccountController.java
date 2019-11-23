@@ -47,9 +47,6 @@ public class AccountController {
     public ModelAndView enterAccount(@RequestParam(name = "name") String login, @RequestParam(name = "pass") String password, ModelMap model) {
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
         model.addAttribute("payments", Collections.EMPTY_LIST);
-        model.addAttribute("levies", Collections.EMPTY_LIST);
-        model.addAttribute("collected", 0);
-        model.addAttribute("prop", 0);
 
         Account account = accountRepository.findByLogin(login);
         if (account == null) {
@@ -62,16 +59,12 @@ public class AccountController {
         Optional<Levy> last = levyRepository.findFirstByOrderByIdDesc();
         if (last.isPresent()) {
             model.addAttribute("prop", last.get().getProp());
-            model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()));
-        } else {
-
+            model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()).orElse(0));
         }
 
         model.addAttribute("name", login);
         last.ifPresent(levy -> model.addAttribute("payments", paymentRepository.findPaymentsByOrderaId(levy.getId())));
-//        if (!model.containsAttribute("payments")) {
-//            model.addAttribute("payments", null);
-//        }
+
         levyRepository.findFirstByOrderByIdDesc().ifPresent(levy -> model.addAttribute("summ", levy.getSumm()));
 
         if (accountRepository.findByLogin(login).getRole().equals("admin")) {
