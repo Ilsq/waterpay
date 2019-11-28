@@ -1,5 +1,6 @@
 package org.coworking.ilsq.controller;
 
+import org.coworking.ilsq.entity.Levy;
 import org.coworking.ilsq.entity.Payment;
 import org.coworking.ilsq.repository.LevyRepository;
 import org.coworking.ilsq.repository.PaymentRepository;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
+import java.util.Collections;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/paid")
@@ -34,6 +37,8 @@ public class PaidController {
     @PostMapping(path = "/fixing")
     public ModelAndView fixingOfPaid(@RequestParam(name = "name") String name, @RequestParam(name = "method") String method, ModelMap model) {
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
+        model.addAttribute("payments", Collections.EMPTY_LIST);
+
         Payment payment = new Payment();
         payment.setMethod(method);
         payment.setPayer(name);
@@ -44,6 +49,12 @@ public class PaidController {
         Date date = new Date(d);
         payment.setDate(date);
         paymentRepository.save(payment);
+
+        Optional<Levy> last = levyRepository.findFirstByOrderByIdDesc();
+        if (last.isPresent()) {
+            model.addAttribute("prop", last.get().getProp());
+            model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()).orElse(0));
+        }
 
         model.addAttribute("name", name);
         model.addAttribute("payments", paymentRepository.findPaymentsByOrderaId(levyRepository.findFirstByOrderByIdDesc().get().getId()));
