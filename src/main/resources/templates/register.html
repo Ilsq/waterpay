@@ -1,10 +1,13 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Waterpay: registration</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+
+<p th:text="${registerError}"></p>
+
 <form action="/account/add" method="post">
     <p><b>Имя</b><br>
         <input name="name" size="50" type="text">

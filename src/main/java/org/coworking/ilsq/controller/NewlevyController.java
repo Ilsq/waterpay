@@ -36,8 +36,30 @@ public class NewlevyController {
         model.addAttribute("payments", Collections.EMPTY_LIST);
 
         if (levyRepository.findByDate(date) != null) {
+            model.addAttribute("newlevyError", "Сбор с такой датой уже объявлен");
             return new ModelAndView("enternewlevy", model);
         }
+
+        if (date == null) {
+            model.addAttribute("newlevyError", "Ошибка вызванная указанием неверной даты");
+            return new ModelAndView("enternewlevy", model);
+        }
+
+        if (prop <= 0) {
+            model.addAttribute("newlevyError", "Ошибка вызванная указанием неверной суммы сбора");
+            return new ModelAndView("enternewlevy", model);
+        }
+
+        if (summ <= 0 || summ > prop) {
+            model.addAttribute("newlevyError", "Ошибка вызванная указанием неверной суммы оплаты");
+            return new ModelAndView("enternewlevy", model);
+        }
+
+        if (methods == null) {
+            model.addAttribute("newlevyError", "Не указаны реквизиты для оплаты");
+            return new ModelAndView("enternewlevy", model);
+        }
+
         Levy levy = new Levy();
         levy.setDate(date);
         levy.setProp(prop);

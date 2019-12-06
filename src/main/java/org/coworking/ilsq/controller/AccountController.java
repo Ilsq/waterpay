@@ -33,8 +33,15 @@ public class AccountController {
     public ModelAndView addNewAccount(@RequestParam(name = "name") String login, @RequestParam(name = "pass") String password, ModelMap model) {
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
         if (accountRepository.findByLogin(login) != null) {
+            model.addAttribute("registerError", "Аккаунт с таким именем зарегистрирован.");
             return new ModelAndView("register", model);
         }
+        if (login == null || password == null) {
+            model.addAttribute("registerError", "Ошибка регистрации.");
+            return new ModelAndView("register", model);
+        }
+
+
         Account account = new Account();
         account.setLogin(login);
         account.setPassword(password);
@@ -46,13 +53,18 @@ public class AccountController {
     @PostMapping(path = "/enter")
     public ModelAndView enterAccount(@RequestParam(name = "name") String login, @RequestParam(name = "pass") String password, ModelMap model) {
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
+
+
         model.addAttribute("payments", Collections.EMPTY_LIST);
+
 
         Account account = accountRepository.findByLogin(login);
         if (account == null) {
+            model.addAttribute("loginError", "Ошибка аутентификации.");
             return new ModelAndView("login", model);
         }
         if (!account.getPassword().equals(password)) {
+            model.addAttribute("loginError", "Ошибка аутентификации.");
             return new ModelAndView("login", model);
         }
 

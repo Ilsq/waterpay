@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class RegisterController {
 
     @GetMapping
-    public ModelAndView goToLogin(ModelMap model) {
+    public ModelAndView goToRegister(ModelMap model) {
         return new ModelAndView("register", model);
     }
 }
