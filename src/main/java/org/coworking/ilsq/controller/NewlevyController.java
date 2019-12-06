@@ -31,33 +31,32 @@ public class NewlevyController {
     }
 
     @PostMapping(path = "/create")
-    public ModelAndView createNewLevy(@RequestParam(name = "date") Date date, @RequestParam(name = "prop") int prop, @RequestParam(name = "pay") int summ, @RequestParam(name = "requisites") String methods, ModelMap model) {
+    public ModelAndView createNewLevy(@RequestParam(name = "date") String dateInSpring, @RequestParam(name = "prop") String propInSpring, @RequestParam(name = "pay") String summInString, @RequestParam(name = "requisites") String methods, ModelMap model) {
+        if (dateInSpring == "" || propInSpring == "" || summInString == "") {
+            model.addAttribute("newlevyError", "Ошибка вызванная указанием неверных/неполных данных.");
+            return new ModelAndView("newlevy", model);
+        }
+
+        Date date = Date.valueOf(dateInSpring);
+        Integer prop = Integer.valueOf(propInSpring);
+        Integer summ = Integer.valueOf(summInString);
+
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
         model.addAttribute("payments", Collections.EMPTY_LIST);
 
-        if (levyRepository.findByDate(date) != null) {
-            model.addAttribute("newlevyError", "Сбор с такой датой уже объявлен");
-            return new ModelAndView("enternewlevy", model);
-        }
-
-        if (date == null) {
-            model.addAttribute("newlevyError", "Ошибка вызванная указанием неверной даты");
-            return new ModelAndView("enternewlevy", model);
-        }
-
         if (prop <= 0) {
-            model.addAttribute("newlevyError", "Ошибка вызванная указанием неверной суммы сбора");
-            return new ModelAndView("enternewlevy", model);
+            model.addAttribute("newlevyError", "Ошибка вызванная указанием неверной суммы сбора.");
+            return new ModelAndView("newlevy", model);
         }
-
+//
         if (summ <= 0 || summ > prop) {
-            model.addAttribute("newlevyError", "Ошибка вызванная указанием неверной суммы оплаты");
-            return new ModelAndView("enternewlevy", model);
+            model.addAttribute("newlevyError", "Ошибка вызванная указанием неверной суммы оплаты.");
+            return new ModelAndView("newlevy", model);
         }
-
-        if (methods == null) {
-            model.addAttribute("newlevyError", "Не указаны реквизиты для оплаты");
-            return new ModelAndView("enternewlevy", model);
+//
+        if (methods == "") {
+            model.addAttribute("newlevyError", "Не указаны реквизиты для оплаты.");
+            return new ModelAndView("newlevy", model);
         }
 
         Levy levy = new Levy();
