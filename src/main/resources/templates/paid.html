@@ -12,6 +12,7 @@
     <p th:text="${name} + '!'"/>
     <input name="name" th:value="${name}" type="hidden">
     <p th:text="'Сумма оплаты: ' + ${summ}"/>
+    <p th:text="'Методы оплаты:' + ${methods}"></p>
     <!--<p><output name="result">300</output></p>-->
     <p><b>Метод оплаты</b><br>
         <input name="method" size="100" type="text">

@@ -84,6 +84,7 @@ public class AccountController {
             return new ModelAndView("administrator", model);
         }
 
+        model.addAttribute("methods", last.get().getMethods());
         return new ModelAndView("fastlevy", model);
     }
 }

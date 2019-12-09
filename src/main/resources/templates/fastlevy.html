@@ -11,6 +11,7 @@
     <p th:text="'Последний сбор: ' + ${collected} + '/' + ${prop}"/>
 
     <p th:text="'Сумма оплаты: ' + ${summ}"/>
+    <p th:text="'Методы оплаты:' + ${methods}"></p>
 
     <p><input type="submit" value="Оплата"></p>
     <input name="name" th:value="${name}" type="hidden">

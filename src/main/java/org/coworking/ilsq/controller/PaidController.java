@@ -38,6 +38,7 @@ public class PaidController {
 
         model.addAttribute("name", name);
         model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
+        model.addAttribute("methods", last.get().getMethods());
         return new ModelAndView("paid", model);
     }
 
@@ -53,6 +54,7 @@ public class PaidController {
 
         model.addAttribute("name", name);
         model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
+        model.addAttribute("methods", last.get().getMethods());
         if (method.equals("")) {
             String error = "Не введен метод оплаты";
             model.addAttribute("error", error);
