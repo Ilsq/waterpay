@@ -5,6 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+
+<p th:text="${error}"></p>
+
 <form action="/paid/fixing" method="post">
     <p th:text="${name} + '!'"/>
     <input name="name" th:value="${name}" type="hidden">

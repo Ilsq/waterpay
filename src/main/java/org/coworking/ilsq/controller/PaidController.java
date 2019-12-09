@@ -29,6 +29,13 @@ public class PaidController {
 
     @PostMapping
     public ModelAndView goToPaid(@RequestParam(name = "name") String name, ModelMap model) {
+
+        Optional<Levy> last = levyRepository.findFirstByOrderByIdDesc();
+        if (last.isPresent()) {
+            model.addAttribute("prop", last.get().getProp());
+            model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()).orElse(0));
+        }
+
         model.addAttribute("name", name);
         model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
         return new ModelAndView("paid", model);
@@ -37,6 +44,21 @@ public class PaidController {
     @PostMapping(path = "/fixing")
     public ModelAndView fixingOfPaid(@RequestParam(name = "name") String name, @RequestParam(name = "method") String method, ModelMap model) {
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
+
+        Optional<Levy> last = levyRepository.findFirstByOrderByIdDesc();
+        if (last.isPresent()) {
+            model.addAttribute("prop", last.get().getProp());
+            model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()).orElse(0));
+        }
+
+        model.addAttribute("name", name);
+        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
+        if (method.equals("")) {
+            String error = "Не введен метод оплаты";
+            model.addAttribute("error", error);
+            return new ModelAndView("paid", model);
+        }
+
         model.addAttribute("payments", Collections.EMPTY_LIST);
 
         Payment payment = new Payment();
@@ -49,12 +71,6 @@ public class PaidController {
         Date date = new Date(d);
         payment.setDate(date);
         paymentRepository.save(payment);
-
-        Optional<Levy> last = levyRepository.findFirstByOrderByIdDesc();
-        if (last.isPresent()) {
-            model.addAttribute("prop", last.get().getProp());
-            model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()).orElse(0));
-        }
 
         model.addAttribute("name", name);
         model.addAttribute("payments", paymentRepository.findPaymentsByOrderaId(levyRepository.findFirstByOrderByIdDesc().get().getId()));
