@@ -13,4 +13,6 @@ public interface PaymentRepository extends CrudRepository<Payment, Integer> {
 
     @Query("SELECT sum (p.amount) FROM Payment p WHERE p.orderaId = :id")
     Optional<Integer> amountSum(@Param("id") int id);
+
+    Payment findFirstByPayerAndId(String payer, int id);
 }

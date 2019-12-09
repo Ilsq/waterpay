@@ -55,6 +55,13 @@ public class PaidController {
         model.addAttribute("name", name);
         model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
         model.addAttribute("methods", last.get().getMethods());
+
+        if (paymentRepository.findFirstByPayerAndId(name, levyRepository.findFirstByOrderByIdDesc().get().getId()) == null) {
+            String repeatError = "Оплата за текущий сбор зафиксирован раннее";
+            model.addAttribute("error", repeatError);
+            return new ModelAndView("paid", model);
+        }
+
         if (method.equals("")) {
             String error = "Не введен метод оплаты";
             model.addAttribute("error", error);
@@ -79,5 +86,4 @@ public class PaidController {
         model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
         return new ModelAndView("fastlevy", model);
     }
-
 }
