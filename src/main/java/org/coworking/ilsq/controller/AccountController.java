@@ -41,7 +41,6 @@ public class AccountController {
             return new ModelAndView("register", model);
         }
 
-
         Account account = new Account();
         account.setLogin(login);
         account.setPassword(password);
@@ -54,9 +53,7 @@ public class AccountController {
     public ModelAndView enterAccount(@RequestParam(name = "name") String login, @RequestParam(name = "pass") String password, ModelMap model) {
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
 
-
         model.addAttribute("payments", Collections.EMPTY_LIST);
-
 
         Account account = accountRepository.findByLogin(login);
         if (account == null) {
@@ -84,7 +81,11 @@ public class AccountController {
             return new ModelAndView("administrator", model);
         }
 
-        model.addAttribute("methods", last.get().getMethods());
+        if (last.isPresent()) {
+            model.addAttribute("methods", last.get().getMethods());
+        } else {
+            model.addAttribute("methods", "указанных реквизитов нет");
+        }
         return new ModelAndView("fastlevy", model);
     }
 }

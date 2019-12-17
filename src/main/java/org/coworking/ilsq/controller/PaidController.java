@@ -20,7 +20,6 @@ import java.util.Optional;
 @RequestMapping(path = "/paid")
 public class PaidController {
 
-
     @Autowired
     private PaymentRepository paymentRepository;
 
