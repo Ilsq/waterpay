@@ -13,13 +13,13 @@
     <input name="name" th:value="${name}" type="hidden">
     <p th:text="'Сумма оплаты: ' + ${summ}"/>
     <p th:text="'Методы оплаты:' + ${methods}"></p>
-    <p><b>Метод оплаты</b><br>
-        <input name="method" size="100" type="text">
-    </p>
+    <!--<p><b>Метод оплаты</b><br>-->
+    <!--<input name="method" size="100" type="text">-->
+    <!--</p>-->
 
-    <!--<p><b>Метод оплаты</b></p>-->
-    <!--<p><input name="method" type="radio" value="method1">метод1</p>-->
-    <!--<p><input name="method" type="radio" value="method2">метод2</p>-->
+    <p><b>Метод оплаты</b></p>
+    <p><input name="method" type="radio" value="method1">метод1</p>
+    <p><input name="method" type="radio" value="method2">метод2</p>
 
     <p><input type="submit" value="Оплата"></p>
 </form>

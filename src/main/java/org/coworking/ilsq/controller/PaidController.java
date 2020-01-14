@@ -64,7 +64,7 @@ public class PaidController {
         model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
         model.addAttribute("methods", last.get().getMethods());
 
-        if (paymentRepository.findFirstByPayerAndId(name, levyRepository.findFirstByOrderByIdDesc().get().getId()) == null) {
+        if (paymentRepository.countPaymentsByPayerAndOrderaId(name, levyRepository.findFirstByOrderByIdDesc().get().getId()) != 0) {
             String repeatError = "Оплата за текущий сбор зафиксирован раннее";
             model.addAttribute("error", repeatError);
             return new ModelAndView("paid", model);

@@ -48,12 +48,12 @@ public class NewlevyController {
             model.addAttribute("newlevyError", "Ошибка вызванная указанием неверной суммы сбора.");
             return new ModelAndView("newlevy", model);
         }
-//
+
         if (summ <= 0 || summ > prop) {
             model.addAttribute("newlevyError", "Ошибка вызванная указанием неверной суммы оплаты.");
             return new ModelAndView("newlevy", model);
         }
-//
+
         if (methods == "") {
             model.addAttribute("newlevyError", "Не указаны реквизиты для оплаты.");
             return new ModelAndView("newlevy", model);
