@@ -31,7 +31,6 @@ public class AccountController {
 
     @PostMapping(path = "/add")
     public ModelAndView addNewAccount(@RequestParam(name = "name") String login, @RequestParam(name = "pass") String password, ModelMap model) {
-        model.addAttribute("attribute", "redirectWithRedirectPrefix");
         if (accountRepository.findByLogin(login) != null) {
             model.addAttribute("registerError", "Аккаунт с таким именем зарегистрирован.");
             return new ModelAndView("register", model);
@@ -51,7 +50,6 @@ public class AccountController {
 
     @PostMapping(path = "/enter")
     public ModelAndView enterAccount(@RequestParam(name = "name") String login, @RequestParam(name = "pass") String password, ModelMap model) {
-        model.addAttribute("attribute", "redirectWithRedirectPrefix");
 
         model.addAttribute("payments", Collections.EMPTY_LIST);
 
@@ -86,6 +84,7 @@ public class AccountController {
         } else {
             model.addAttribute("methods", "указанных реквизитов нет");
         }
+        model.addAttribute("paidError", "");
         return new ModelAndView("fastlevy", model);
     }
 }

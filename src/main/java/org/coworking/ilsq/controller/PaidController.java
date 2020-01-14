@@ -30,11 +30,20 @@ public class PaidController {
     public ModelAndView goToPaid(@RequestParam(name = "name") String name, ModelMap model) {
 
         Optional<Levy> last = levyRepository.findFirstByOrderByIdDesc();
-        if (last.isPresent()) {
-            model.addAttribute("prop", last.get().getProp());
-            model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()).orElse(0));
+
+        if (!last.isPresent()) {
+            model.addAttribute("payments", Collections.EMPTY_LIST);
+            model.addAttribute("name", name);
+            model.addAttribute("collected", "null");
+            model.addAttribute("prop", "null");
+            model.addAttribute("summ", "null");
+            model.addAttribute("methods", "указанных реквизитов нет");
+            model.addAttribute("paidError", "Сборов нет");
+            return new ModelAndView("fastlevy", model);
         }
 
+        model.addAttribute("prop", last.get().getProp());
+        model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()).orElse(0));
         model.addAttribute("name", name);
         model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
         model.addAttribute("methods", last.get().getMethods());
