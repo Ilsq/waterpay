@@ -15,6 +15,4 @@ public interface PaymentRepository extends CrudRepository<Payment, Integer> {
     Optional<Integer> amountSum(@Param("id") int id);
 
     Integer countPaymentsByPayerAndOrderaId(String payer, int id);
-//    @Query("select count (p.payer) from Payment p where p.payer = :payer and p.orderaId = :id")
-//    Payment findFirstByPayerAndId(String payer, int id);
 }

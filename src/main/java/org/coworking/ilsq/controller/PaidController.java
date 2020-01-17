@@ -51,8 +51,7 @@ public class PaidController {
     }
 
     @PostMapping(path = "/fixing")
-    public ModelAndView fixingOfPaid(@RequestParam(name = "name") String name, @RequestParam(name = "method") String method, ModelMap model) {
-        model.addAttribute("attribute", "redirectWithRedirectPrefix");
+    public ModelAndView fixingOfPaid(@RequestParam(name = "name") String name, @RequestParam(name = "method", required = false) String method, ModelMap model) {
 
         Optional<Levy> last = levyRepository.findFirstByOrderByIdDesc();
         if (last.isPresent()) {
@@ -70,7 +69,7 @@ public class PaidController {
             return new ModelAndView("paid", model);
         }
 
-        if (method.equals("")) {
+        if (method == null) {
             String error = "Не введен метод оплаты";
             model.addAttribute("error", error);
             return new ModelAndView("paid", model);
