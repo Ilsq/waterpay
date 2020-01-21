@@ -74,17 +74,41 @@ public class PaidController {
 
         model.addAttribute("name", name);
         model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
-        model.addAttribute("methods", last.get().getMethods());
 
         if (paymentRepository.countPaymentsByPayerAndOrderaId(name, levyRepository.findFirstByOrderByIdDesc().get().getId()) != 0) {
             String repeatError = "Оплата за текущий сбор зафиксирован раннее";
-            model.addAttribute("error", repeatError);
-            return new ModelAndView("paid", model);
+            model.addAttribute("methods", last.get().getMethods());
+            model.addAttribute("paidError", repeatError);
+
+            ArrayList<String> requisites = new ArrayList<>();
+            StringTokenizer st = new StringTokenizer(last.get().getMethods(), "\n");
+            while (st.hasMoreTokens()) {
+                String req = "";
+                req = st.nextToken();
+                requisites.add(req);
+
+            }
+
+            last.ifPresent(levy -> model.addAttribute("payments", paymentRepository.findPaymentsByOrderaId(levy.getId())));
+
+            model.addAttribute("requisites", requisites);
+            return new ModelAndView("fastlevy", model);
         }
 
         if (method == null) {
             String error = "Не введен метод оплаты";
             model.addAttribute("error", error);
+
+            ArrayList<String> requisites = new ArrayList<>();
+            StringTokenizer st = new StringTokenizer(last.get().getMethods(), "\n");
+            while (st.hasMoreTokens()) {
+                String req = "";
+                req = st.nextToken();
+                requisites.add(req);
+            }
+
+            model.addAttribute("requisites", requisites);
+
             return new ModelAndView("paid", model);
         }
 
