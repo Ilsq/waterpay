@@ -35,8 +35,8 @@ public class AccountController {
             model.addAttribute("registerError", "Аккаунт с таким именем зарегистрирован.");
             return new ModelAndView("register", model);
         }
-        if (login == null || password == null) {
-            model.addAttribute("registerError", "Ошибка регистрации.");
+        if (login == "" || password == "") {
+            model.addAttribute("registerError", "Ошибка регистрации. Не указан логин или пароль");
             return new ModelAndView("register", model);
         }
 
