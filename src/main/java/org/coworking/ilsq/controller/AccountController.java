@@ -84,6 +84,7 @@ public class AccountController {
         } else {
             model.addAttribute("methods", "указанных реквизитов нет");
         }
+
         model.addAttribute("paidError", "");
         return new ModelAndView("fastlevy", model);
     }

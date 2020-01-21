@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.StringTokenizer;
 
 @Controller
 @RequestMapping(path = "/paid")
@@ -30,18 +32,42 @@ public class PaidController {
     public ModelAndView goToPaid(@RequestParam(name = "name") String name, ModelMap model) {
 
         Optional<Levy> last = levyRepository.findFirstByOrderByIdDesc();
-        model.addAttribute("prop", last.get().getProp());
-        model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()).orElse(0));
+
         model.addAttribute("name", name);
-        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
-        model.addAttribute("methods", last.get().getMethods());
+        model.addAttribute("paidError", "");
+//        model.addAttribute("methods", last.get().getMethods());
+
 
         if (!last.isPresent()) {
+            model.addAttribute("prop", last.get().getProp());
+            model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()).orElse(0));
+            model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
             model.addAttribute("payments", Collections.EMPTY_LIST);
             model.addAttribute("paidError", "Сборов нет");
+            model.addAttribute("methods", "определенных споров нет");
             return new ModelAndView("fastlevy", model);
         }
 
+        ArrayList<String> requisites = new ArrayList<>();
+        StringTokenizer st = new StringTokenizer(last.get().getMethods(), "\n");
+        while (st.hasMoreTokens()) {
+            String req = "";
+            req = st.nextToken();
+            requisites.add(req);
+        }
+
+//        ArrayList<String> req = new ArrayList<>();
+//        req.add("one");
+//        req.add("two");
+//        req.add("three");
+//        model.addAttribute("req", req);
+
+        model.addAttribute("requisites", requisites);
+
+        last.ifPresent(levy -> model.addAttribute("payments", paymentRepository.findPaymentsByOrderaId(levy.getId())));
+        model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
+        model.addAttribute("prop", last.get().getProp());
+        model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()).orElse(0));
         return new ModelAndView("paid", model);
     }
 
