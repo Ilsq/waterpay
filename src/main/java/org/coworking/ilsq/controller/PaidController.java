@@ -33,18 +33,16 @@ public class PaidController {
 
         Optional<Levy> last = levyRepository.findFirstByOrderByIdDesc();
 
-        model.addAttribute("name", name);
         model.addAttribute("paidError", "");
-//        model.addAttribute("methods", last.get().getMethods());
-
+        model.addAttribute("name", name);
 
         if (!last.isPresent()) {
-            model.addAttribute("prop", last.get().getProp());
-            model.addAttribute("collected", paymentRepository.amountSum(last.get().getId()).orElse(0));
-            model.addAttribute("summ", levyRepository.findFirstByOrderByIdDesc().get().getSumm());
+            model.addAttribute("prop", "null");
+            model.addAttribute("collected", "null");
+            model.addAttribute("summ", "null");
             model.addAttribute("payments", Collections.EMPTY_LIST);
             model.addAttribute("paidError", "Сборов нет");
-            model.addAttribute("methods", "определенных споров нет");
+            model.addAttribute("methods", "null");
             return new ModelAndView("fastlevy", model);
         }
 
@@ -55,12 +53,6 @@ public class PaidController {
             req = st.nextToken();
             requisites.add(req);
         }
-
-//        ArrayList<String> req = new ArrayList<>();
-//        req.add("one");
-//        req.add("two");
-//        req.add("three");
-//        model.addAttribute("req", req);
 
         model.addAttribute("requisites", requisites);
 
